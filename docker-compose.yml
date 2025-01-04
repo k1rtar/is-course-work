@@ -1,0 +1,40 @@
+services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - task-service
+      - test-runner-service
+    networks:
+      - algoforge-net
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    networks:
+      - algoforge-net
+
+  task-service:
+    build: ./task-service
+    container_name: task-service
+    ports:
+      - "8082:8082"
+    networks:
+      - algoforge-net
+
+  test-runner-service:
+    build: ./test-runner-service
+    container_name: test-runner-service
+    ports:
+      - "8090:8090"
+    networks:
+      - algoforge-net
+
+networks:
+  algoforge-net:
+    driver: bridge

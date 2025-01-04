@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: http://auth-service:8081
+          predicates:
+            - Path=/api/auth/**
+
+        - id: task-service
+          uri: http://task-service:8082
+          predicates:
+            - Path=/api/tasks/**
+
+        - id: test-runner-service
+          uri: http://test-runner-service:8090
+          predicates:
+            - Path=/api/test-runner/**
+
+
+        # - id: comment-service
+        #   uri: http://comment-service:8083
+        #   predicates:
+        #     - Path=/api/comments/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
