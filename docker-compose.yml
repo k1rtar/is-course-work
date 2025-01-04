@@ -1,6 +1,25 @@
+version: '3.8'
+
 services:
+  # PostgreSQL Сервис
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    networks:
+      - algoforge-net
+
+  # API Gateway
   api-gateway:
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
     container_name: api-gateway
     ports:
       - "8080:8080"
@@ -11,27 +30,59 @@ services:
     networks:
       - algoforge-net
 
+  # Auth Service
   auth-service:
-    build: ./auth-service
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
     container_name: auth-service
     ports:
       - "8081:8081"
+    volumes:
+      - ./auth-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     networks:
       - algoforge-net
 
+  # Task Service
   task-service:
-    build: ./task-service
+    build:
+      context: ./task-service
+      dockerfile: Dockerfile
     container_name: task-service
     ports:
       - "8082:8082"
+    volumes:
+      - ./task-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: task
     networks:
       - algoforge-net
 
+  # Test Runner Service
   test-runner-service:
-    build: ./test-runner-service
+    build:
+      context: ./test-runner-service
+      dockerfile: Dockerfile
     container_name: test-runner-service
     ports:
       - "8090:8090"
+    volumes:
+      - ./test-runner-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: test_runner
     networks:
       - algoforge-net
 

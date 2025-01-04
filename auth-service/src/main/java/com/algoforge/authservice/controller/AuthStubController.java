@@ -10,6 +10,6 @@ public class AuthStubController {
 
     @GetMapping("/hello")
     public String helloAuth() {
-        return "Hello from Auth Service Stub";
+        return "Hello from hello 123";
     }
 }
