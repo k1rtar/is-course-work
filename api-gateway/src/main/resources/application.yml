@@ -4,30 +4,45 @@ server:
 spring:
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: http://auth-service:8081
-          predicates:
-            - Path=/api/auth/**
+      mvc:
+        routes:
+          - id: auth-service
+            uri: http://auth-service:8081
+            predicates:
+              - Path=/api/auth/**
 
-        - id: task-service
-          uri: http://task-service:8082
-          predicates:
-            - Path=/api/tasks/**
+          - id: task-service
+            uri: http://task-service:8082
+            predicates:
+              - Path=/api/tasks/**
 
-        - id: test-runner-service
-          uri: http://test-runner-service:8090
-          predicates:
-            - Path=/api/test-runner/**
+          - id: test-runner-service
+            uri: http://test-runner-service:8090
+            predicates:
+              - Path=/api/test-runner/**
 
 
-        # - id: comment-service
-        #   uri: http://comment-service:8083
-        #   predicates:
-        #     - Path=/api/comments/**
+          # - id: comment-service
+          #   uri: http://comment-service:8083
+          #   predicates:
+          #     - Path=/api/comments/**
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+
+app:
+  jwt-secret: 6BB/MLUbNQ86RMOWzOfYPR4LR9PATkcmPEeMGvy88LU=
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+    org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter: DEBUG
+

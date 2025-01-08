@@ -1,9 +1,7 @@
 # Сборка
 FROM gradle:8.11.1-jdk21 AS build
 WORKDIR /app
-COPY task-service /app
-COPY common /common
+COPY . /app
 ENTRYPOINT ["./gradlew", "bootRun"]
 
-EXPOSE 8082
-
+EXPOSE 8090
