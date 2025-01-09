@@ -20,7 +20,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                                    .anyRequest().permitAll())
+                    .requestMatchers("/api/tasks/public/**").permitAll()
+                    .requestMatchers("/api/tasks/**").authenticated()
+                    .anyRequest().denyAll()
+            )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, authExp) -> response.sendError(401, "User is not unthenicated")))
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
