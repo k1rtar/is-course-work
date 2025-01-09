@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -55,9 +56,11 @@ public class AlgoUser {
     @Column
     private Integer rating = 0;
 
+    @JsonProperty("isBlocked")
     @Column(nullable = false)
     private boolean isBlocked = false;
 
+    @JsonProperty("isDeleted")
     @Column(nullable = false)
     private boolean isDeleted = false;
 
