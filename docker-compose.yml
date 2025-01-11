@@ -72,6 +72,23 @@ services:
     networks:
       - algoforge-net
 
+
+  contest-service:
+    build:
+      context: .
+      dockerfile: contest-service/Dockerfile
+    container_name: contest-service
+    # ports:
+    #   - "8083:8083"
+    volumes:
+      - ./contest-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - algoforge-net
   # Test Runner Service
   # test-runner-service:
   #   build:

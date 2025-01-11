@@ -21,6 +21,10 @@ spring:
             predicates:
               - Path=/api/test-runner/**
 
+          - id: contest-service
+            uri: http://contest-service:8083
+            predicates:
+              - Path=/api/contests/**
 
           # - id: comment-service
           #   uri: http://comment-service:8083

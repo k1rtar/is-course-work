@@ -1,0 +1,3 @@
+rootProject.name = 'contest-service';
+
+includeBuild '../common'
