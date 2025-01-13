@@ -43,10 +43,10 @@ public class AlgoUser {
     @Column(nullable = false)
     private String password;
 
-    @Lob
+    @Column(columnDefinition = "text")
     private String bio;
 
-    @Lob
+    @Column(name = "profile_photo", columnDefinition="bytea")
     private byte[] profilePhoto;
 
     @CreationTimestamp
