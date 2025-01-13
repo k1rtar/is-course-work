@@ -1,3 +1,3 @@
-rootProject.name = 'authservice'
+rootProject.name = 'auth-service'
 
 includeBuild '../common'

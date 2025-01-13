@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.algoforge.authservice", "com.algoforge.common.component"})
+@ComponentScan(basePackages = {"com.algoforge.authservice", "com.algoforge.common"})
 public class AuthServiceApplication {
 
     @Bean

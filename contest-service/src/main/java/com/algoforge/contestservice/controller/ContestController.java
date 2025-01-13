@@ -7,6 +7,7 @@ import com.algoforge.contestservice.service.ContestService;
 import com.algoforge.common.auth.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,14 +41,21 @@ public class ContestController {
 
 
     @PostMapping
+    @PreAuthorize("!authentication.principal.blocked and hasAnyAuthority('USER','MODERATOR','ADMIN')")
     public Contest createContest(@RequestBody Contest contest,
                                  @AuthenticationPrincipal UserPrincipal principal) {
-        contest.setCreatorUserId(principal.getId());
-        return contestService.createContest(contest);
+        return contestService.createContestWithOwner(contest, principal.getId());
     }
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("""
+        !authentication.principal.blocked and
+        (
+          hasAuthority('ADMIN')
+          or @contestSecurity.isContestOwner(#id, authentication.principal.id)
+        )
+    """)
     public Contest updateContest(@PathVariable Long id,
                                  @RequestBody Contest updates,
                                  @AuthenticationPrincipal UserPrincipal principal) {
@@ -56,6 +64,13 @@ public class ContestController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("""
+        !authentication.principal.blocked and
+        (
+          hasAuthority('ADMIN')
+          or @contestSecurity.isContestOwner(#id, authentication.principal.id)
+        )
+    """)
     public void deleteContest(@PathVariable Long id,
                               @AuthenticationPrincipal UserPrincipal principal) {
         contestService.deleteContest(id);
@@ -63,6 +78,13 @@ public class ContestController {
 
 
     @PostMapping("/{id}/tasks")
+    @PreAuthorize("""
+        !authentication.principal.blocked and
+        (
+          hasAuthority('ADMIN')
+          or @contestSecurity.isContestOwner(#id, authentication.principal.id)
+        )
+    """)
     public void addTasks(@PathVariable Long id,
                          @RequestBody List<Long> taskIds,
                          @AuthenticationPrincipal UserPrincipal principal) {
@@ -83,6 +105,7 @@ public class ContestController {
 
 
     @PostMapping("/{id}/participants")
+    @PreAuthorize("!authentication.principal.blocked")
     public void registerParticipant(@PathVariable Long id,
                                     @RequestParam Long userId,
                                     @AuthenticationPrincipal UserPrincipal principal) {

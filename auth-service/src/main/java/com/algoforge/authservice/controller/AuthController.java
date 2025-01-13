@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.algoforge.authservice.controller.exception.RegistrationFailException;
 import com.algoforge.authservice.controller.request.AuthenticationRequest;
@@ -21,9 +19,6 @@ import com.algoforge.authservice.model.AlgoUserDetails;
 import com.algoforge.authservice.service.AlgoUserDetailsService;
 import com.algoforge.common.auth.AlgoUserDto;
 import com.algoforge.common.component.JwtUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -78,14 +73,48 @@ public class AuthController {
     public AlgoUserDto getUserByUsername(@PathVariable String username) {
         
         AlgoUser user = userDetailsService.getByUsername(username);
-        AlgoUserDto userDto = new AlgoUserDto();
-        userDto.setId(user.getId());
-        userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail());
-        userDto.setBlocked(user.isBlocked());
-        
-        return userDto;
+        return convertToDto(user);
+    }
 
+    @PutMapping("/users/{username}/block")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public AlgoUserDto blockUser(@PathVariable String username,
+                                 @AuthenticationPrincipal AlgoUserDetails currentUser) {
+        AlgoUser user = userDetailsService.getByUsername(username);
+        user.setBlocked(true);
+        userDetailsService.save(user);
+        return convertToDto(user);
+    }
+
+    @PutMapping("/users/{username}/unblock")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public AlgoUserDto unblockUser(@PathVariable String username,
+                                   @AuthenticationPrincipal AlgoUserDetails currentUser) {
+        AlgoUser user = userDetailsService.getByUsername(username);
+        user.setBlocked(false);
+        userDetailsService.save(user);
+
+        return convertToDto(user);
+    }
+
+
+    @DeleteMapping("/users/{username}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteUser(@PathVariable String username,
+                           @AuthenticationPrincipal AlgoUserDetails currentUser) {
+        AlgoUser user = userDetailsService.getByUsername(username);
+        user.setDeleted(true);
+        userDetailsService.save(user);
+    }
+
+    private AlgoUserDto convertToDto(AlgoUser user) {
+        AlgoUserDto dto = new AlgoUserDto();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setBlocked(user.isBlocked());
+        dto.setDeleted(user.isDeleted());
+        return dto;
     }
     
 }

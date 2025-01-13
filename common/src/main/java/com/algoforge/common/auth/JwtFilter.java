@@ -1,4 +1,4 @@
-package com.algoforge.apigateway.component;
+package com.algoforge.common.auth;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,15 +9,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.algoforge.apigateway.request.AddHeadersRequestWrapper;
-import com.algoforge.common.auth.AlgoUserDto;
-import com.algoforge.common.auth.UserPrincipal;
 import com.algoforge.common.component.JwtUtil;
-import com.algoforge.common.feign.UserServiceClient;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,17 +23,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtWithAuthFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private UserServiceClient userClient;
-
     @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
+        System.out.println("In tasks filter with no jwt");
 
         String jwt = extractJwtFromRequest(request);
         String username = null;
@@ -48,34 +44,36 @@ public class JwtWithAuthFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 chain.doFilter(request, response);
             }
-        } 
+        }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            try {
 
-            if (jwtUtil.validateToken(jwt, username)) {
+                if (jwtUtil.validateToken(jwt, username)) {
 
-                AlgoUserDto userDto = userClient.getUserByUsername(username);
+                    System.out.println("In tasks filter with jwt");
 
-                HttpServletRequest wrappedRequest = new AddHeadersRequestWrapper(request, userDto);
+                    List<String> roles = jwtUtil.extractRoles(jwt);
 
-                List<String> roles = jwtUtil.extractRoles(jwt);
+                    List<GrantedAuthority> authorities = roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
-                List<GrantedAuthority> authorities = roles.stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+                    UserPrincipal principal = new UserPrincipal(username, authorities);
+                    principal.setId(Long.valueOf(request.getHeader("X-User-Id")));
+                    principal.setEmail(request.getHeader("X-User-Email"));
+                    principal.setBlocked((Boolean.valueOf(request.getHeader("X-User-Blocked"))));
 
-                UserPrincipal principal = new UserPrincipal(username, authorities);
-
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(principal, jwt, principal.getAuthorities());
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(principal, jwt, principal.getAuthorities());
                     usernamePasswordAuthenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                
-                chain.doFilter(wrappedRequest, response);
-                return;
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
             }
-            
+            catch (UsernameNotFoundException exp) {
+            }
+
         }
 
         chain.doFilter(request, response);

@@ -89,6 +89,28 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     networks:
       - algoforge-net
+
+  admin-service:
+    build:
+      context: .
+      dockerfile: admin-service/Dockerfile
+    container_name: admin-service
+    # ports:
+    #   - "8084:8084"
+    volumes:
+      - ./admin-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres
+      - auth-service
+      - task-service
+      - contest-service
+    networks:
+      - algoforge-net
   # Test Runner Service
   # test-runner-service:
   #   build:

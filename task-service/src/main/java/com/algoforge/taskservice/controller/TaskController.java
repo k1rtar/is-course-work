@@ -1,5 +1,6 @@
 package com.algoforge.taskservice.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,16 +31,26 @@ public class TaskController {
     }
 
     @PostMapping
+    @PreAuthorize("!authentication.principal.blocked and hasAnyAuthority('USER','MODERATOR','ADMIN')")
     public Task createTask(@RequestBody Task task,
                            @AuthenticationPrincipal UserPrincipal principal) {
         if (principal.isBlocked()) {
             throw new RuntimeException("User is blocked, cannot create task.");
         }
+        System.out.println(principal.getId());
+        System.out.println(principal.toString());
         task.setCreatorUserId(principal.getId());
         return taskService.createTask(task);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("""
+        !authentication.principal.blocked and
+        (
+          hasAuthority('ADMIN')
+          or @taskSecurity.isTaskOwner(#id, authentication.principal.id)
+        )
+   """)
     public Task updateTask(@PathVariable Long id,
                            @RequestBody Task updates,
                            @AuthenticationPrincipal UserPrincipal principal) {
@@ -47,6 +58,13 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("""
+        !authentication.principal.blocked and
+        (
+          hasAuthority('ADMIN')
+          or @taskSecurity.isTaskOwner(#id, authentication.principal.id)
+        )
+    """)
     public void deleteTask(@PathVariable Long id,
                            @AuthenticationPrincipal UserPrincipal principal) {
         taskService.deleteTask(id);

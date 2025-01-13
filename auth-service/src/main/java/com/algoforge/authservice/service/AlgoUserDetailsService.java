@@ -1,5 +1,6 @@
 package com.algoforge.authservice.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +33,7 @@ public class AlgoUserDetailsService implements UserDetailsService {
         return new AlgoUserDetails(user, user.getGrantedAuthorities());
     }
 
+    @Transactional
     public AlgoUser getByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
@@ -60,10 +62,19 @@ public class AlgoUserDetailsService implements UserDetailsService {
         newUser.setBio(registrationRequest.getBio());
         newUser.setProfilePhoto(registrationRequest.getProfilePhoto());
         newUser.addRole(Role.USER);
+        boolean adminExists = userRepository.existsByRolesContaining(Role.ADMIN);
+
+        if (!adminExists) {
+            newUser.addRole(Role.ADMIN);
+        }
 
         userRepository.save(newUser);
 
         return newUser;
+    }
+
+    public AlgoUser save(AlgoUser user) {
+        return userRepository.save(user);
     }
 
 }

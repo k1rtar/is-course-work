@@ -1,0 +1,5 @@
+server:
+  port: 8084
+
+app:
+  jwt-secret: 6BB/MLUbNQ86RMOWzOfYPR4LR9PATkcmPEeMGvy88LU=

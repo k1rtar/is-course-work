@@ -4,12 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="feat(task-service): add Task Service&#10;&#10;- Add Task, Category, TestCase, and other domain entities&#10;- Implement CRUD operations, repositories, services, and controllers&#10;- Configure Spring Security with JWT for authentication&#10;- Provide Dockerfile and docker-compose setup&#10;- Include integration with PostgreSQL">
+    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="feat(auth): enhance AlgoUser model with additional properties and improvements&#10;&#10;- Configured the profilePhoto field to use the bytea type for binary storage.">
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/ApigatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/ApigatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/component/JwtWithAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/component/JwtWithAuthFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/repository/AlgoUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/repository/AlgoUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/service/AlgoUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/service/AlgoUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/algoforge/common/component/UserServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/algoforge/common/feign/UserServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/controller/ContestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/controller/ContestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/service/ContestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/service/ContestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +32,9 @@
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/admin-service">
       <ProjectState />
     </projectState>
     <projectState path="$PROJECT_DIR$/apigateway">
@@ -44,7 +61,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="admin-service" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -55,6 +77,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -97,7 +120,7 @@
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/jetbrains/is-course-work/contest-service",
+    "last_opened_file_path": "D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -108,6 +131,7 @@
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "vcs.Git",
+    "two.files.diff.last.used.file": "D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -126,6 +150,13 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.ApigatewayApplication">
+    <configuration name="AdminServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="admin-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.taskservice.AdminServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ApigatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="apigateway.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.apigateway.ApigatewayApplication" />
@@ -134,7 +165,7 @@
       </method>
     </configuration>
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="authservice.main" />
+      <module name="auth-service.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.authservice.AuthServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -189,7 +220,8 @@
       <workItem from="1736515017840" duration="1202000" />
       <workItem from="1736530654225" duration="1000" />
       <workItem from="1736597169884" duration="1000" />
-      <workItem from="1736609545332" duration="8560000" />
+      <workItem from="1736609545332" duration="10059000" />
+      <workItem from="1736669480188" duration="44217000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -223,7 +255,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736450324956</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat(contest-service): implement contest management">
+      <option name="closed" value="true" />
+      <created>1736621255878</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736621255878</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat(auth): enhance AlgoUser model with additional properties and improvements&#10;&#10;- Configured the profilePhoto field to use the bytea type for binary storage.">
+      <option name="closed" value="true" />
+      <created>1736772653502</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736772653502</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +305,8 @@
     <MESSAGE value="feat(api-gateway): add API gateway and stubs for auth-service, task-service, and test-runner-service" />
     <MESSAGE value="feat(auth-service): add JsonProperty annotation to isBlocked and isDeleted fields in AlgoUser&#10;&#10;These changes ensure proper serialization and deserialization of the fields&#10;during JSON processing, allowing their values to be correctly read and written." />
     <MESSAGE value="feat(task-service): add Task Service&#10;&#10;- Add Task, Category, TestCase, and other domain entities&#10;- Implement CRUD operations, repositories, services, and controllers&#10;- Configure Spring Security with JWT for authentication&#10;- Provide Dockerfile and docker-compose setup&#10;- Include integration with PostgreSQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(task-service): add Task Service&#10;&#10;- Add Task, Category, TestCase, and other domain entities&#10;- Implement CRUD operations, repositories, services, and controllers&#10;- Configure Spring Security with JWT for authentication&#10;- Provide Dockerfile and docker-compose setup&#10;- Include integration with PostgreSQL" />
+    <MESSAGE value="feat(contest-service): implement contest management" />
+    <MESSAGE value="feat(auth): enhance AlgoUser model with additional properties and improvements&#10;&#10;- Configured the profilePhoto field to use the bytea type for binary storage." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): enhance AlgoUser model with additional properties and improvements&#10;&#10;- Configured the profilePhoto field to use the bytea type for binary storage." />
   </component>
 </project>

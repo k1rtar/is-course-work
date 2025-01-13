@@ -4,7 +4,6 @@ import com.algoforge.contestservice.model.Contest;
 import com.algoforge.contestservice.model.ContestParticipant;
 import com.algoforge.contestservice.model.ContestParticipantId;
 import com.algoforge.contestservice.model.ContestTask;
-import com.algoforge.contestservice.model.ContestTaskId;
 import com.algoforge.contestservice.repository.ContestParticipantRepository;
 import com.algoforge.contestservice.repository.ContestRepository;
 import com.algoforge.contestservice.repository.ContestTaskRepository;
@@ -28,7 +27,7 @@ public class ContestService {
     private ContestTaskRepository contestTaskRepository;
 
 
-    public Contest createContest(Contest contest) {
+    public Contest createContestWithOwner(Contest contest, Long creatorUserId) {
         if (contest.getStartTime() == null) {
             contest.setStartTime(LocalDateTime.now().plusDays(1));
         }
@@ -38,6 +37,7 @@ public class ContestService {
         if (contest.getStartTime().isAfter(contest.getEndTime())) {
             throw new RuntimeException("StartTime must be before EndTime");
         }
+        contest.setCreatorUserId(creatorUserId);
         return contestRepository.save(contest);
     }
 
