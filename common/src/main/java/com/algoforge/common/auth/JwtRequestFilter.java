@@ -32,8 +32,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        System.out.println("In tasks filter with no jwt");
-
         String jwt = extractJwtFromRequest(request);
         String username = null;
 
@@ -45,13 +43,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 chain.doFilter(request, response);
             }
         } 
-
+        
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
-                
                 if (jwtUtil.validateToken(jwt, username)) {
-
-                    System.out.println("In tasks filter with jwt");
 
                     List<String> roles = jwtUtil.extractRoles(jwt);
 

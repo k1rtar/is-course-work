@@ -16,10 +16,10 @@ spring:
             predicates:
               - Path=/api/tasks/**
 
-          - id: test-runner-service
-            uri: http://test-runner-service:8090
+          - id: testrunner-service
+            uri: http://testrunner-service:8090
             predicates:
-              - Path=/api/test-runner/**
+              - Path=/api/testrunner/**
 
           - id: contest-service
             uri: http://contest-service:8083

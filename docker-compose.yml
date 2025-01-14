@@ -28,7 +28,7 @@ services:
     depends_on:
       - auth-service
       # - task-service
-      # - test-runner-service
+      # - testrunner-service
     networks:
       - algoforge-net
 
@@ -112,23 +112,17 @@ services:
     networks:
       - algoforge-net
   # Test Runner Service
-  # test-runner-service:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: test-runner-service
-  #   # ports:
-  #   #   - "8090:8090"
-  #   volumes:
-  #     - ./test-runner-service/src:/app/src
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
-  #     SPRING_DATASOURCE_USERNAME: myuser
-  #     SPRING_DATASOURCE_PASSWORD: mypassword
-  #     SPRING_JPA_HIBERNATE_DDL_AUTO: update
-  #     SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: test_runner
-  #   networks:
-  #     - algoforge-net
+  testrunner-service:
+    build:
+      context: .
+      dockerfile: testrunner-service/Dockerfile
+    container_name: testrunner-service
+    # ports:
+    #   - "8090:8090"
+    volumes:
+      - ./testrunner-service/src:/app/src
+    networks:
+      - algoforge-net
 
 networks:
   algoforge-net:

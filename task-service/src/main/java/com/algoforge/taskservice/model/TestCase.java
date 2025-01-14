@@ -22,6 +22,7 @@ public class TestCase {
     @Column(name = "IsSample", nullable = false)
     private boolean isSample;
 
-    @Column(name = "TaskID", nullable = false)
-    private Long taskId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id")
+    private Task task;
 }
