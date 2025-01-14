@@ -1,5 +1,6 @@
 package com.algoforge.taskservice.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,35 @@ public class TaskController {
                            @AuthenticationPrincipal UserPrincipal principal) {
         taskService.deleteTask(id);
     }
+
+    /**
+     * Пример: GET /api/tasks/search?title=...&categoryId=...&minDifficulty=...&maxDifficulty=...&page=0&size=5
+     */
+    @GetMapping("/search")
+    public Page<Task> searchTasks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Integer minDifficulty,
+            @RequestParam(required = false) Integer maxDifficulty,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return taskService.searchTasks(
+                title,
+                categoryId,
+                minDifficulty,
+                maxDifficulty,
+                page,
+                size
+        );
+    }
+
+
+    @GetMapping("/my")
+    @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN')")
+    public List<Task> getMyTasks(@AuthenticationPrincipal UserPrincipal principal) {
+        return taskService.getTasksByCreator(principal.getId());
+    }
+
+
 }
