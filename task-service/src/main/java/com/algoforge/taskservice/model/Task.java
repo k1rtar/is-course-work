@@ -3,7 +3,10 @@ package com.algoforge.taskservice.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -42,4 +45,15 @@ public class Task {
 
     @Column(name = "CreatorUserID")
     private Long creatorUserId;
+
+    /**
+     * Многие-к-многим через таблицу TaskCategory.
+     */
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "TaskCategory",
+            joinColumns = @JoinColumn(name = "TaskID"),
+            inverseJoinColumns = @JoinColumn(name = "CategoryID")
+    )
+    private Set<Category> categories = new HashSet<>();
 }
