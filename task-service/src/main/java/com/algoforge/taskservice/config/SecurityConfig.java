@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/tasks/public/**").permitAll()
+                        .requestMatchers("/api/tasks/public/**", "/api/tasks/search/**").permitAll()
                         .requestMatchers("/api/tasks/**").authenticated()
                         .anyRequest().denyAll()
                 )

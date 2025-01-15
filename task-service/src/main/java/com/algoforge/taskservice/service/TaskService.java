@@ -2,6 +2,7 @@ package com.algoforge.taskservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.algoforge.taskservice.model.Task;
@@ -10,6 +11,7 @@ import com.algoforge.taskservice.repository.TaskRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -55,7 +57,7 @@ public class TaskService {
     }
 
     /**
-     * Поиск задач c фильтрами + пагинация.
+     * Поиск задач с фильтрами + пагинация на уровне логики приложения.
      * Если title пустая строка, приравняем к null (не фильтровать).
      */
     public Page<Task> searchTasks(
@@ -66,20 +68,47 @@ public class TaskService {
             int page,
             int size
     ) {
-        if (title != null && title.isBlank()) {
-            title = null;
-        }
+        // Получаем все задачи
+        List<Task> allTasks = taskRepository.findAll();
 
-        var pageable = PageRequest.of(page, size);
+        // Применяем фильтры
+        List<Task> filteredTasks = allTasks.stream()
+                .filter(task -> {
+                    boolean matches = true;
 
-        return taskRepository.searchTasks(
-                title,
-                categoryId,
-                minDifficulty,
-                maxDifficulty,
-                pageable
-        );
+                    // Фильтр по title (нечувствительный к регистру)
+                    if (title != null && !title.isBlank()) {
+                        matches = task.getTitle().toLowerCase().contains(title.toLowerCase());
+                    }
+
+                    // Фильтр по categoryId
+                    if (matches && categoryId != null) {
+                        matches = task.getCategories().stream()
+                                .anyMatch(category -> category.getCategoryId().equals(categoryId));
+                    }
+
+                    // Фильтр по minDifficulty
+                    if (matches && minDifficulty != null) {
+                        matches = task.getDifficultyLevel().ordinal() >= minDifficulty;
+                    }
+
+                    // Фильтр по maxDifficulty
+                    if (matches && maxDifficulty != null) {
+                        matches = task.getDifficultyLevel().ordinal() <= maxDifficulty;
+                    }
+
+                    return matches;
+                })
+                .collect(Collectors.toList());
+
+        // Пагинация
+        int start = Math.min(page * size, filteredTasks.size());
+        int end = Math.min(start + size, filteredTasks.size());
+        List<Task> pagedTasks = filteredTasks.subList(start, end);
+
+        return new PageImpl<>(pagedTasks, PageRequest.of(page, size), filteredTasks.size());
     }
+
     public List<Task> getTasksByCreator(Long userId) {
         return taskRepository.findByCreatorUserId(userId);
     }

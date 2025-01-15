@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Configuration
-public class FeignConfig {
+public class AdminFeignConfig {
 
     @Bean
     public RequestInterceptor authForwardingRequestInterceptor() {

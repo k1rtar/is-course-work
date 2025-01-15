@@ -1,7 +1,6 @@
 package com.algoforge.taskservice.controller;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +29,15 @@ public class TaskController {
 
     @GetMapping("/{taskId}")
     public TaskDto getTaskById(@PathVariable Long taskId) {
-        Task task = taskService.findById(taskId).orElseThrow(() -> new RuntimeException("No Task found with ID=" + taskId));
+        Task task = taskService.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("No Task found with ID=" + taskId));
         return task.getDtoObject();
     }
 
     @PostMapping("/create")
     @PreAuthorize("!authentication.principal.isBlocked() and hasAnyAuthority('USER','MODERATOR','ADMIN')")
     public ResponseEntity<?> createTask(@RequestBody Task task,
-                           @AuthenticationPrincipal UserPrincipal principal) {
+                                        @AuthenticationPrincipal UserPrincipal principal) {
 
         task.setCreatorUserId(principal.getId());
         taskService.createTask(task);
@@ -94,14 +94,9 @@ public class TaskController {
         );
     }
 
-
     @GetMapping("/my")
     @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN')")
     public List<Task> getMyTasks(@AuthenticationPrincipal UserPrincipal principal) {
         return taskService.getTasksByCreator(principal.getId());
     }
-
-
-    
-
 }

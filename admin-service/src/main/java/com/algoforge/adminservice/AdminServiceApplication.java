@@ -1,6 +1,6 @@
 package com.algoforge.adminservice;
 
-import com.algoforge.adminservice.config.FeignConfig;
+import com.algoforge.adminservice.config.AdminFeignConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
         basePackages = {
                 "com.algoforge.common.feign"
         },
-        defaultConfiguration = FeignConfig.class
+        defaultConfiguration = AdminFeignConfig.class
 )
 @ComponentScan(basePackages = {"com.algoforge.adminservice", "com.algoforge.common"})
 public class AdminServiceApplication {

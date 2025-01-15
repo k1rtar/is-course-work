@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="feat(admin-service): add implementation of admin-service&#10;- Configured Spring Security with role-based access control for admin functionality.&#10;- Integrated Feign clients for communication with other microservices (auth-service, task-service, contest-service).">
+    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="feat(repository): add search with pagination in TaskRepository">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/algoforge/apigateway/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/algoforge/authservice/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/src/main/java/com/algoforge/contestservice/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/AdminServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/AdminServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/config/FeignConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/config/AdminFeignConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contest-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/solution-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/model/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/repository/TaskRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/service/TaskService.java" afterDir="false" />
     </list>
@@ -37,10 +42,16 @@
     <projectState path="$PROJECT_DIR$/contest-service">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/solution-service">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/task-service">
       <ProjectState />
     </projectState>
     <projectState path="$PROJECT_DIR$/test-runner-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/testrunner-service">
       <ProjectState />
     </projectState>
   </component>
@@ -52,12 +63,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="admin-service" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -101,31 +107,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/jetbrains/is-course-work/solution-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "vcs.Git",
+    "two.files.diff.last.used.file": "D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\jetbrains\is-course-work" />
@@ -169,9 +175,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SolutionServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="solution-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.solutionservice.SolutionServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TaskServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="task-service_main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.taskservice.TaskServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestRunnerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="testrunner-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.algoforge.testrunner.TestRunnerApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -218,7 +238,7 @@
       <workItem from="1736783216256" duration="1000" />
       <workItem from="1736783972948" duration="2000" />
       <workItem from="1736784350328" duration="2325000" />
-      <workItem from="1736792949072" duration="21692000" />
+      <workItem from="1736792949072" duration="47467000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -276,7 +296,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736772886723</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat(security): update services in SecurityConfig">
+      <option name="closed" value="true" />
+      <created>1736885328454</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736885328455</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat(repository): add search with pagination in TaskRepository">
+      <option name="closed" value="true" />
+      <created>1736885354899</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736885354899</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,6 +349,8 @@
     <MESSAGE value="feat(contest-service): implement contest management" />
     <MESSAGE value="feat(auth): enhance AlgoUser model with additional properties and improvements&#10;&#10;- Configured the profilePhoto field to use the bytea type for binary storage." />
     <MESSAGE value="feat(admin-service): add implementation of admin-service&#10;- Configured Spring Security with role-based access control for admin functionality.&#10;- Integrated Feign clients for communication with other microservices (auth-service, task-service, contest-service)." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(admin-service): add implementation of admin-service&#10;- Configured Spring Security with role-based access control for admin functionality.&#10;- Integrated Feign clients for communication with other microservices (auth-service, task-service, contest-service)." />
+    <MESSAGE value="feat(security): update services in SecurityConfig" />
+    <MESSAGE value="feat(repository): add search with pagination in TaskRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(repository): add search with pagination in TaskRepository" />
   </component>
 </project>
