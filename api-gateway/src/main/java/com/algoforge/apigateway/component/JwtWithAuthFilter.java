@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.algoforge.apigateway.request.AddHeadersRequestWrapper;
-import com.algoforge.common.auth.AlgoUserDto;
 import com.algoforge.common.auth.UserPrincipal;
 import com.algoforge.common.component.JwtUtil;
+import com.algoforge.common.dto.AlgoUserDto;
 import com.algoforge.common.feign.UserServiceClient;
 
 import jakarta.servlet.FilterChain;

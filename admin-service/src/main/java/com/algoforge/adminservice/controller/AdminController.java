@@ -1,8 +1,9 @@
 package com.algoforge.adminservice.controller;
 
 import com.algoforge.adminservice.service.AdminService;
-import com.algoforge.common.auth.AlgoUserDto;
 import com.algoforge.common.auth.UserPrincipal;
+import com.algoforge.common.dto.AlgoUserDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

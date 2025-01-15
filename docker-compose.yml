@@ -123,6 +123,22 @@ services:
       - ./testrunner-service/src:/app/src
     networks:
       - algoforge-net
+  solution-service:
+    build:
+      context: .
+      dockerfile: solution-service/Dockerfile
+    container_name: solution-service
+    # ports:
+    #   - "8099:8099"
+    volumes:
+      - ./solution-service/src:/app/src
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - algoforge-net
 
 networks:
   algoforge-net:

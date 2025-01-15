@@ -11,9 +11,6 @@ import com.algoforge.common.model.TestResult;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Сервис, который организует запуск кода в Docker и проверку результатов
- */
 @Service
 public class JudgeService {
 
@@ -47,7 +44,6 @@ public class JudgeService {
                 continue;
             }
 
-            // Сравниваем с ожидаемым результатом
             boolean passed = testCase.getExpectedOutput().equals(executionOutput);
             if (!passed) {
                 allPassed = false;

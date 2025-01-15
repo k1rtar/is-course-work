@@ -1,12 +1,15 @@
 package com.algoforge.taskservice.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.algoforge.common.auth.UserPrincipal;
+import com.algoforge.common.dto.TaskDto;
 import com.algoforge.taskservice.model.Task;
 import com.algoforge.taskservice.service.TaskService;
 
@@ -25,23 +28,21 @@ public class TaskController {
         return taskService.getAllPublicTasks();
     }
 
-    @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
-        return taskService.findById(id)
-                .orElseThrow(() -> new RuntimeException("No Task found with ID=" + id));
+    @GetMapping("/{taskId}")
+    public TaskDto getTaskById(@PathVariable Long taskId) {
+        Task task = taskService.findById(taskId).orElseThrow(() -> new RuntimeException("No Task found with ID=" + taskId));
+        return task.getDtoObject();
     }
 
-    @PostMapping
-    @PreAuthorize("!authentication.principal.blocked and hasAnyAuthority('USER','MODERATOR','ADMIN')")
-    public Task createTask(@RequestBody Task task,
+    @PostMapping("/create")
+    @PreAuthorize("!authentication.principal.isBlocked() and hasAnyAuthority('USER','MODERATOR','ADMIN')")
+    public ResponseEntity<?> createTask(@RequestBody Task task,
                            @AuthenticationPrincipal UserPrincipal principal) {
-        if (principal.isBlocked()) {
-            throw new RuntimeException("User is blocked, cannot create task.");
-        }
-        System.out.println(principal.getId());
-        System.out.println(principal.toString());
+
         task.setCreatorUserId(principal.getId());
-        return taskService.createTask(task);
+        taskService.createTask(task);
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
@@ -100,5 +101,7 @@ public class TaskController {
         return taskService.getTasksByCreator(principal.getId());
     }
 
+
+    
 
 }

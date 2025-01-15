@@ -3,7 +3,7 @@ package com.algoforge.common.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import com.algoforge.common.auth.AlgoUserDto;
+import com.algoforge.common.dto.AlgoUserDto;
 
 
 @FeignClient(name = "auth-service-client", url = "http://auth-service:8081/api/auth")

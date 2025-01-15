@@ -19,4 +19,8 @@ public class TestCaseService {
     public TestCase addTestCase(TestCase tc) {
         return testCaseRepository.save(tc);
     }
+
+    public List<TestCase> addAllTests(List<TestCase> tcList) {
+        return testCaseRepository.saveAll(tcList);
+    }
 }

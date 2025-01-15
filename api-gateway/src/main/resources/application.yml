@@ -20,6 +20,11 @@ spring:
             uri: http://testrunner-service:8090
             predicates:
               - Path=/api/testrunner/**
+          
+          - id: solution-service
+            uri: http://solution-service:8099
+            predicates:
+              - Path=/api/solutions/**
 
           - id: contest-service
             uri: http://contest-service:8083

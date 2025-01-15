@@ -1,4 +1,4 @@
-package com.algoforge.common.auth;
+package com.algoforge.common.dto;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

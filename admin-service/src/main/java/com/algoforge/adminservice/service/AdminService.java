@@ -1,9 +1,10 @@
 package com.algoforge.adminservice.service;
 
+import com.algoforge.common.dto.AlgoUserDto;
 import com.algoforge.common.feign.AuthServiceClient;
 import com.algoforge.common.feign.ContestServiceClient;
 import com.algoforge.common.feign.TaskServiceClient;
-import com.algoforge.common.auth.AlgoUserDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

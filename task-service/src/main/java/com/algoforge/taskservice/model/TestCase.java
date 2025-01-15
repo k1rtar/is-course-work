@@ -1,5 +1,7 @@
 package com.algoforge.taskservice.model;
 
+import com.algoforge.common.dto.TestCaseDto;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,6 +25,17 @@ public class TestCase {
     private boolean isSample;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "TaskID")
     private Task task;
+
+    public TestCaseDto getDtoObject() {
+        TestCaseDto dto = new TestCaseDto();
+        dto.setTestCaseId(testCaseId);
+        dto.setInputData(inputData);
+        dto.setExpectedOutputData(expectedOutputData);
+        dto.setSample(isSample);
+        dto.setTaskId(task.getId());
+        return dto;
+    }
+
 }

@@ -3,3 +3,13 @@ server:
 
 app:
   jwt-secret: 6BB/MLUbNQ86RMOWzOfYPR4LR9PATkcmPEeMGvy88LU=
+
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+    org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter: DEBUG

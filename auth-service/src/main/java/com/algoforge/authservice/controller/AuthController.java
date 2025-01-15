@@ -17,8 +17,8 @@ import com.algoforge.authservice.controller.request.AuthenticationResponse;
 import com.algoforge.authservice.model.AlgoUser;
 import com.algoforge.authservice.model.AlgoUserDetails;
 import com.algoforge.authservice.service.AlgoUserDetailsService;
-import com.algoforge.common.auth.AlgoUserDto;
 import com.algoforge.common.component.JwtUtil;
+import com.algoforge.common.dto.AlgoUserDto;
 
 
 @RestController
