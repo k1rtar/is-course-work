@@ -4,22 +4,108 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="feat(repository): add search with pagination in TaskRepository">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3bdceca6-f60e-4c62-b858-78be44f89aa8" name="Changes" comment="init frontend">
+      <change afterPath="$PROJECT_DIR$/algoforge" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/MaterialModule.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/guards/auth.guard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/interceptors/auth.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/admin.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/category.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/contest.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/task.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/test-case.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/core/services/user.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/admin-dashboard/admin-dashboard.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/admin-dashboard/admin-dashboard.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/admin-dashboard/admin-dashboard.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/categories/categories.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/categories/categories.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/admin/categories/categories.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/login/login.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/login/login.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/login/login.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/register/register.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/register/register.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/auth/register/register.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/categories/category-list/category-list.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/categories/category-list/category-list.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/categories/category-list/category-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-create/contest-create.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-create/contest-create.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-create/contest-create.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-detail/contest-detail.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-detail/contest-detail.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-detail/contest-detail.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-edit/contest-edit.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-edit/contest-edit.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-edit/contest-edit.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-list/contest-list.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-list/contest-list.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-list/contest-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-participate/contest-participate.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-participate/contest-participate.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-participate/contest-participate.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-results/contest-results.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-results/contest-results.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-results/contest-results.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-tasks/contest-tasks.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-tasks/contest-tasks.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/contest-tasks/contest-tasks.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/my-contests/my-contests.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/my-contests/my-contests.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/contests/my-contests/my-contests.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/my-tasks/my-tasks.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/my-tasks/my-tasks.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/my-tasks/my-tasks.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-create/task-create.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-create/task-create.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-create/task-create.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-detail/task-detail.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-detail/task-detail.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-detail/task-detail.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-edit/task-edit.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-edit/task-edit.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-edit/task-edit.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-list/task-list.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-list/task-list.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-list/task-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-search/task-search.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-search/task-search.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/tasks/task-search/task-search.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-create/test-case-create.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-create/test-case-create.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-create/test-case-create.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-edit/test-case-edit.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-edit/test-case-edit.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-edit/test-case-edit.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-list/test-case-list.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-list/test-case-list.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/features/test-cases/test-case-list/test-case-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/models/category.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/models/contest.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/models/task-create-request.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/models/task.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/models/user.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/shared/components/navbar/navbar.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/shared/components/navbar/navbar.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoforge/src/app/shared/components/navbar/navbar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/AdminServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/AdminServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/config/FeignConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/algoforge/adminservice/config/AdminFeignConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contest-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/contest-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/solution-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/repository/TaskRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/algoforge/taskservice/service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoforge/tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/algoforge/tsconfig.spec.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +203,7 @@
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/jetbrains/is-course-work/solution-service",
+    "last_opened_file_path": "D:/jetbrains/is-course-work",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -128,6 +214,7 @@
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "vcs.Git",
+    "ts.external.directory.path": "C:\\Users\\Кирилл Викторович\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "two.files.diff.last.used.file": "D:/jetbrains/is-course-work/common/src/main/java/com/algoforge/common/auth/JwtWithAuthFilter.java",
     "vue.rearranger.settings.migration": "true"
   }
@@ -238,7 +325,7 @@
       <workItem from="1736783216256" duration="1000" />
       <workItem from="1736783972948" duration="2000" />
       <workItem from="1736784350328" duration="2325000" />
-      <workItem from="1736792949072" duration="47467000" />
+      <workItem from="1736792949072" duration="48280000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -312,7 +399,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736885354899</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(repository): add correct search in TaskService">
+      <option name="closed" value="true" />
+      <created>1736973949176</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736973949176</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat(repository): add correct search in TaskService">
+      <option name="closed" value="true" />
+      <created>1736973969922</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1736973969922</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,6 +454,8 @@
     <MESSAGE value="feat(admin-service): add implementation of admin-service&#10;- Configured Spring Security with role-based access control for admin functionality.&#10;- Integrated Feign clients for communication with other microservices (auth-service, task-service, contest-service)." />
     <MESSAGE value="feat(security): update services in SecurityConfig" />
     <MESSAGE value="feat(repository): add search with pagination in TaskRepository" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(repository): add search with pagination in TaskRepository" />
+    <MESSAGE value="feat(repository): add correct search in TaskService" />
+    <MESSAGE value="init frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="init frontend" />
   </component>
 </project>
