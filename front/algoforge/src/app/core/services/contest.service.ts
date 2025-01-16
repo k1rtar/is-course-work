@@ -1,4 +1,4 @@
-// file: src/app/core/services/contest.service.ts
+// src/app/core/services/contest.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -81,16 +81,16 @@ export class ContestService {
     return this.http.delete<void>(`${this.apiBaseUrl}/${id}`);
   }
 
-  addTasksToContest(contestId: number, taskIds: number[]): Observable<void> {
-    return this.http.post<void>(`${this.apiBaseUrl}/${contestId}/tasks`, taskIds);
+  addTasksToContest(contestId: number, ids: number[]): Observable<void> {
+    return this.http.post<void>(`${this.apiBaseUrl}/${contestId}/tasks`, ids);
   }
 
   registerParticipant(contestId: number, userId: number): Observable<void> {
     return this.http.post<void>(`${this.apiBaseUrl}/${contestId}/participants?userId=${userId}`, {});
   }
 
-  getContestTasks(contestId: number): Observable<{contestId: number; taskId: number}[]> {
-    return this.http.get<{contestId: number; taskId: number}[]>(`${this.apiBaseUrl}/${contestId}/tasks`);
+  getContestTasks(contestId: number): Observable<{ contestId: number; taskId: number }[]> {
+    return this.http.get<{ contestId: number; taskId: number }[]>(`${this.apiBaseUrl}/${contestId}/tasks`);
   }
 
   getContestParticipants(contestId: number): Observable<any[]> {
@@ -103,8 +103,7 @@ export class ContestService {
     return new Observable(observer => {
       // например, mock
       observer.next([
-        { userId: 2, username: "user2", score: 100, rank: 1 },
-        { userId: 3, username: "user3", score: 80, rank: 2 }
+        { userId: 2, username: "user1", score: 100, rank: 1 },
       ]);
       observer.complete();
     });

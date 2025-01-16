@@ -1,3 +1,5 @@
+
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,12 +31,14 @@ export class ContestCreateComponent {
   ) {}
 
   onSubmit() {
+    // Формат даты и времени: '2025-01-15T10:30'
     this.contestService.createContest(this.contestData).subscribe({
       next: (res) => {
         this.snackBar.open('Контест создан!', 'OK', { duration: 3000 });
         this.router.navigate(['/contests', res.contestId]);
       },
       error: (err) => {
+        console.error('Ошибка создания контеста:', err);
         this.snackBar.open('Ошибка создания контеста', 'OK', { duration: 3000 });
       }
     });

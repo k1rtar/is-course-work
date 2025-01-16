@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminDashboardComponent implements OnInit {
   userToDelete = '';
-  taskIdToDelete!: number | null;
+  idToDelete!: number | null;
   contestIdToDelete!: number | null;
 
   blockUsername = '';
@@ -44,10 +44,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteTask() {
-    if (this.taskIdToDelete) {
-      this.adminService.deleteTask(this.taskIdToDelete).subscribe({
+    if (this.idToDelete) {
+      this.adminService.deleteTask(this.idToDelete).subscribe({
         next: () => {
-          this.snackBar.open(`Задача #${this.taskIdToDelete} удалена`, 'OK', { duration: 3000 });
+          this.snackBar.open(`Задача #${this.idToDelete} удалена`, 'OK', { duration: 3000 });
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления задачи`, 'OK', { duration: 3000 });

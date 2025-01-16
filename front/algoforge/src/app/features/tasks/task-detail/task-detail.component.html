@@ -1,5 +1,8 @@
-<div class="task-detail" *ngIf="task">
-  <mat-card>
+<!-- src/app/features/tasks/task-detail/task-detail.component.html -->
+
+<div class="task-detail" *ngIf="!isLoading && task">
+  <!-- Карточка с деталями задачи -->
+  <mat-card class="task-card">
     <mat-card-title>{{ task.title }}</mat-card-title>
     <mat-card-content>
       <p><strong>ID:</strong> {{ task.id }}</p>
@@ -8,14 +11,47 @@
       <p><strong>Статус:</strong> {{ task.status }}</p>
       <p><strong>Публична:</strong> {{ task.isPublic ? 'Да' : 'Нет' }}</p>
       <p><strong>Категории:</strong>
-        <span *ngFor="let c of task.categories">{{ c.categoryName }} </span>
+        <span *ngFor="let c of task.categories; let last = last">
+          {{ c.categoryName }}<span *ngIf="!last">, </span>
+        </span>
       </p>
     </mat-card-content>
   </mat-card>
 
   <br />
 
-  <mat-card>
+  <!-- Раздел с sample тестовыми случаями -->
+  <mat-card class="sample-tests-card">
+    <mat-card-title>Примерные Тестовые Случаи</mat-card-title>
+    <mat-card-content>
+      <div *ngIf="sampleTestCases.length > 0; else noSampleTests">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let tc of sampleTestCases">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Тест ID: {{ tc.testCaseId }}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ tc.isSample ? 'Sample' : 'Regular' }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="test-case-details">
+              <p><strong>Входные данные:</strong> {{ tc.inputData }}</p>
+              <p><strong>Ожидаемый вывод:</strong> {{ tc.expectedOutputData }}</p>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <ng-template #noSampleTests>
+        <p>Нет примерных тестовых случаев для этой задачи.</p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <!-- Раздел для отправки решения -->
+  <mat-card class="solution-card">
     <mat-card-title>Отправить решение</mat-card-title>
     <mat-card-content>
       <div>
@@ -42,26 +78,47 @@
 
   <br />
 
-  <!-- Отобразим результаты решения, если есть -->
+  <!-- Отображение результатов отправки решения -->
   <div *ngIf="submissionResult as r">
-    <mat-card>
+    <mat-card class="result-card">
       <mat-card-title>Результаты выполнения</mat-card-title>
       <mat-card-content>
         <p>Все тесты прошли: {{ r.allPassed ? 'Да' : 'Нет' }}</p>
-        <div *ngIf="r.testResults">
+        <div *ngIf="r.testResults && r.testResults.length > 0">
           <p>Подробности тестов:</p>
-          <ul>
-            <li *ngFor="let t of r.testResults">
-              <strong>Ввод:</strong> {{ t.inputData }} <br />
-              <strong>Ожидалось:</strong> {{ t.expectedOutput }} <br />
-              <strong>Получено:</strong> {{ t.actualOutput }} <br />
-              <strong>Результат:</strong> {{ t.passed ? 'Прошел' : 'Провалено' }}
-              <hr />
-            </li>
-          </ul>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let t of r.testResults">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Тест ID: {{ t.testCaseId }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Статус: <span [ngClass]="{'passed': t.passed, 'failed': !t.passed}">
+                    {{ t.passed ? 'Прошел' : 'Провалено' }}
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="test-details">
+                <p><strong>Входные данные:</strong> {{ t.inputData }}</p>
+                <p><strong>Ожидаемый вывод:</strong> {{ t.expectedOutput }}</p>
+                <p><strong>Получено:</strong> {{ t.actualOutput }}</p>
+                <p *ngIf="t.errorMessage"><strong>Ошибка:</strong> {{ t.errorMessage }}</p>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
-        <p *ngIf="r.errorMessage">Ошибка: {{ r.errorMessage }}</p>
+        <p *ngIf="r.errorMessage"><strong>Ошибка:</strong> {{ r.errorMessage }}</p>
       </mat-card-content>
     </mat-card>
   </div>
+</div>
+
+<!-- Сообщение, если задача не найдена -->
+<div *ngIf="!isLoading && !task" class="no-task">
+  <p>Задача не найдена.</p>
+</div>
+
+<!-- Индикатор загрузки -->
+<div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
 </div>

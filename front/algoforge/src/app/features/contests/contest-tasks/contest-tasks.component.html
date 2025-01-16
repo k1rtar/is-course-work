@@ -1,3 +1,40 @@
+<!--&lt;!&ndash; src/app/features/contests/contest-tasks/contest-tasks.component.html &ndash;&gt;-->
+<!--<div class="contest-tasks-container">-->
+<!--  <h2>Управление задачами в контесте #{{ contestId }}</h2>-->
+
+<!--  <mat-card>-->
+<!--    <mat-card-title>Добавить задачи</mat-card-title>-->
+<!--    <mat-card-content>-->
+<!--      <mat-form-field appearance="outline" style="width: 100%;">-->
+<!--        <mat-label>Выберите задачи</mat-label>-->
+<!--        <mat-select multiple [(ngModel)]="selectedids" name="selectedTasks">-->
+<!--          <mat-option *ngFor="let t of allTasks" [value]="t.id">-->
+<!--            {{ t.title }} (ID: {{ t.id }})-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+
+<!--      <button mat-raised-button color="primary" (click)="onAddTasks()">Добавить в контест</button>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+
+<!--  <br />-->
+
+<!--  <mat-card>-->
+<!--    <mat-card-title>Задачи в контесте</mat-card-title>-->
+<!--    <mat-card-content>-->
+<!--      <ul>-->
+<!--        <li *ngFor="let ct of contestTasks">-->
+<!--          <a [routerLink]="['/tasks', ct.id]">-->
+<!--            Задача ID: {{ ct.id }}-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<!-- src/app/features/contests/contest-tasks/contest-tasks.component.html -->
+
 <div class="contest-tasks-container">
   <h2>Управление задачами в контесте #{{ contestId }}</h2>
 
@@ -24,7 +61,9 @@
     <mat-card-content>
       <ul>
         <li *ngFor="let ct of contestTasks">
-          Задача ID: {{ ct.taskId }}
+          <a [routerLink]="['/tasks', ct.taskId]">
+            Задача ID: {{ ct.taskId }}
+          </a>
         </li>
       </ul>
     </mat-card-content>

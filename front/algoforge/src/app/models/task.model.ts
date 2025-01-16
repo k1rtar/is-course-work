@@ -1,8 +1,9 @@
 // src/app/models/task.model.ts
 import { Category } from './category.model';
+import { TestCaseDto } from './test-case.dto';
 
 export interface Task {
-  taskId?: number;
+  id?: number;
   title: string;
   description: string;
   difficultyLevel: number;
@@ -13,4 +14,5 @@ export interface Task {
   maxMemoryUsage?: number;
   creatorUserId?: number;
   categories?: Category[];
+  testCases?: TestCaseDto[];
 }

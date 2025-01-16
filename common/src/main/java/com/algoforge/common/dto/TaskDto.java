@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.algoforge.common.model.TaskDifficulty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 public class TaskDto {
@@ -14,6 +15,7 @@ public class TaskDto {
     private String description;
     private TaskDifficulty difficultyLevel;
     private LocalDateTime creationDate;
+    @JsonProperty("isPublic")
     private boolean isPublic;
     private String status;
     private Float maxExecutionTime;

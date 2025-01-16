@@ -6,6 +6,8 @@ import { TaskService, Task } from '../../../core/services/task.service';
 import { CategoryService, Category } from '../../../core/services/category.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TestCase } from '../../../core/services/test-case.service';
+import { TestCaseDto } from '../../../models/test-case.dto';
 
 @Component({
   selector: 'app-task-create',
@@ -37,11 +39,7 @@ export class TaskCreateComponent implements OnInit {
   ];
 
   // Массив для хранения локально создаваемых тест-кейсов
-  testCases: Array<{
-    inputData: string;
-    expectedOutputData: string;
-    isSample: boolean;
-  }> = [];
+  testCases: TestCaseDto[] = [];
 
   constructor(
     private taskService: TaskService,
@@ -67,7 +65,7 @@ export class TaskCreateComponent implements OnInit {
       inputData: '',
       expectedOutputData: '',
       isSample: false
-    });
+    } as TestCaseDto);
   }
 
   removeTestCase(index: number): void {

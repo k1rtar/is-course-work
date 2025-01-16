@@ -1,9 +1,9 @@
-<!-- contest-create.component.html -->
 <div class="contest-create">
   <mat-card>
     <mat-card-title>Создать контест</mat-card-title>
     <mat-card-content>
       <form (ngSubmit)="onSubmit()">
+
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Название</mat-label>
           <input matInput [(ngModel)]="contestData.title" name="title" required />
@@ -14,18 +14,24 @@
           <textarea matInput [(ngModel)]="contestData.description" name="description"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Время начала</mat-label>
-          <input matInput [matDatepicker]="picker1" [(ngModel)]="contestData.startTime" name="startTime" required>
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+        <!-- Дата и время начала -->
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Дата и время начала</mat-label>
+          <input matInput
+                 type="datetime-local"
+                 [(ngModel)]="contestData.startTime"
+                 name="startTime"
+                 required>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Время окончания</mat-label>
-          <input matInput [matDatepicker]="picker2" [(ngModel)]="contestData.endTime" name="endTime" required>
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
+        <!-- Дата и время окончания -->
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Дата и время окончания</mat-label>
+          <input matInput
+                 type="datetime-local"
+                 [(ngModel)]="contestData.endTime"
+                 name="endTime"
+                 required>
         </mat-form-field>
 
         <mat-slide-toggle [(ngModel)]="contestData.isPublic" name="isPublic">

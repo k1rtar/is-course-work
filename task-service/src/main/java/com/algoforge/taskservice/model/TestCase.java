@@ -1,6 +1,7 @@
 package com.algoforge.taskservice.model;
 
 import com.algoforge.common.dto.TestCaseDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class TestCase {
     private String expectedOutputData;
 
     @Column(name = "IsSample", nullable = false)
+    @JsonProperty("isSample")
     private boolean isSample;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -14,9 +14,6 @@
   <button mat-button routerLink="/contests/create" *ngIf="authService.isLoggedIn() && !authService.isBlockedUser()">
     Создать контест
   </button>
-  <button mat-button routerLink="/contests/my" *ngIf="authService.isLoggedIn() && !authService.isBlockedUser()">
-    Мои контесты
-  </button>
   <button mat-button routerLink="/admin" *ngIf="authService.isLoggedIn()">
     Админка
   </button>

@@ -1,5 +1,14 @@
-/* contest-create.component.scss */
+/* file: src/app/features/contests/contest-create/contest-create.component.scss */
+
 .contest-create {
   max-width: 600px;
   margin: 2rem auto;
+
+  mat-card {
+    padding: 1rem;
+  }
+
+  mat-slide-toggle {
+    margin-top: 1rem;
+  }
 }

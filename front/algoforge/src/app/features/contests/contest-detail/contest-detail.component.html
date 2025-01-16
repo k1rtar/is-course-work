@@ -1,19 +1,67 @@
-<!--&lt;!&ndash; contest-detail.component.html &ndash;&gt;-->
-<!--<div class="contest-detail" *ngIf="contest">-->
+<!--&lt;!&ndash;&lt;!&ndash; contest-detail.component.html &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="contest-detail" *ngIf="contest">&ndash;&gt;-->
+<!--&lt;!&ndash;  <mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-card-title>{{ contest.title }}</mat-card-title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-card-content>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p><strong>ID:</strong> {{ contest.contestId }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p><strong>Описание:</strong> {{ contest.description }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p><strong>Начало:</strong> {{ contest.startTime }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p><strong>Окончание:</strong> {{ contest.endTime }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p><strong>Creator ID:</strong> {{ contest.creatorUserId }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a mat-stroked-button color="primary" [routerLink]="['/contests', contest.contestId, 'edit']">Редактировать</a>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a mat-stroked-button color="accent" [routerLink]="['/contests', contest.contestId, 'tasks']">Управление задачами</a>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a mat-stroked-button color="warn" [routerLink]="['/contests', contest.contestId, 'results']">Результаты</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-card-content>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash; file: src/app/features/contests/contest-edit/contest-edit.component.html &ndash;&gt;-->
+<!--<div class="contest-edit" *ngIf="contestData">-->
 <!--  <mat-card>-->
-<!--    <mat-card-title>{{ contest.title }}</mat-card-title>-->
+<!--    <mat-card-title>Редактировать контест (ID: {{ contestId }})</mat-card-title>-->
 <!--    <mat-card-content>-->
-<!--      <p><strong>ID:</strong> {{ contest.contestId }}</p>-->
-<!--      <p><strong>Описание:</strong> {{ contest.description }}</p>-->
-<!--      <p><strong>Начало:</strong> {{ contest.startTime }}</p>-->
-<!--      <p><strong>Окончание:</strong> {{ contest.endTime }}</p>-->
-<!--      <p><strong>Creator ID:</strong> {{ contest.creatorUserId }}</p>-->
-<!--      <a mat-stroked-button color="primary" [routerLink]="['/contests', contest.contestId, 'edit']">Редактировать</a>-->
-<!--      <a mat-stroked-button color="accent" [routerLink]="['/contests', contest.contestId, 'tasks']">Управление задачами</a>-->
-<!--      <a mat-stroked-button color="warn" [routerLink]="['/contests', contest.contestId, 'results']">Результаты</a>-->
+<!--      <form (ngSubmit)="onSubmit()">-->
+<!--        <mat-form-field appearance="outline" style="width: 100%;">-->
+<!--          <mat-label>Название</mat-label>-->
+<!--          <input matInput [(ngModel)]="contestData.title" name="title" required />-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline" style="width: 100%;">-->
+<!--          <mat-label>Описание</mat-label>-->
+<!--          <textarea matInput [(ngModel)]="contestData.description" name="description"></textarea>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline" style="width: 100%;">-->
+<!--          <mat-label>Дата/время начала</mat-label>-->
+<!--          <input matInput-->
+<!--                 type="datetime-local"-->
+<!--                 [(ngModel)]="contestData.startTime"-->
+<!--                 name="startTime"-->
+<!--                 required>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline" style="width: 100%;">-->
+<!--          <mat-label>Дата/время окончания</mat-label>-->
+<!--          <input matInput-->
+<!--                 type="datetime-local"-->
+<!--                 [(ngModel)]="contestData.endTime"-->
+<!--                 name="endTime"-->
+<!--                 required>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-slide-toggle [(ngModel)]="contestData.isPublic" name="isPublic">-->
+<!--          Публичный?-->
+<!--        </mat-slide-toggle>-->
+
+<!--        <br /><br />-->
+<!--        <button mat-raised-button color="primary" type="submit">-->
+<!--          Сохранить-->
+<!--        </button>-->
+<!--      </form>-->
 <!--    </mat-card-content>-->
 <!--  </mat-card>-->
 <!--</div>-->
+<!-- file: src/app/features/contests/contest-detail/contest-detail.component.html -->
+
 <div class="contest-detail" *ngIf="contest">
   <mat-card>
     <mat-card-title>{{ contest.title }}</mat-card-title>
@@ -22,14 +70,35 @@
       <p><strong>Описание:</strong> {{ contest.description }}</p>
       <p><strong>Начало:</strong> {{ contest.startTime | date:'short' }}</p>
       <p><strong>Окончание:</strong> {{ contest.endTime | date:'short' }}</p>
-      <p><strong>Creator ID:</strong> {{ contest.creatorUserId }}</p>
-      <a mat-stroked-button color="accent" [routerLink]="['/contests', contest.contestId, 'tasks']">Управление задачами</a>
-      <a mat-stroked-button color="warn" [routerLink]="['/contests', contest.contestId, 'results']">Результаты</a>
+      <p><strong>Создатель ID:</strong> {{ contest.creatorUserId }}</p>
 
-      <!-- Кнопка участия -->
-      <button mat-raised-button color="primary" *ngIf="canParticipate()" [routerLink]="['/contests', contest.contestId, 'participate']">
-        Участвовать
-      </button>
+      <a mat-stroked-button color="accent"
+         [routerLink]="['/contests', contest.contestId, 'tasks']">
+        Управление задачами
+      </a>
+      <a mat-stroked-button color="warn"
+         [routerLink]="['/contests', contest.contestId, 'results']">
+        Результаты
+      </a>
+      <a mat-stroked-button color="primary"
+         [routerLink]="['/contests', contest.contestId, 'edit']">
+        Редактировать контест
+      </a>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <mat-card-title>Задачи в контесте</mat-card-title>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let ct of contestTasks">
+          <a [routerLink]="['/tasks', ct.taskId]">
+            Задача ID: {{ ct.taskId }}
+          </a>
+        </li>
+      </ul>
     </mat-card-content>
   </mat-card>
 </div>

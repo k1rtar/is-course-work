@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./task-edit.component.scss']
 })
 export class TaskEditComponent implements OnInit {
-  taskId!: number;
+  id!: number;
   taskData?: Task;
   categoriesList: Category[] = [];
   selectedCategories: number[] = [];
@@ -34,14 +34,14 @@ export class TaskEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.taskId = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.categoryService.getAllCategories().subscribe({
       next: (cats) => {
         this.categoriesList = cats;
       }
     });
 
-    this.taskService.getTaskById(this.taskId).subscribe({
+    this.taskService.getTaskById(this.id).subscribe({
       next: (res) => {
         this.taskData = res;
         // Заполним selectedCategories
@@ -62,7 +62,7 @@ export class TaskEditComponent implements OnInit {
       return c ? c : {};
     });
 
-    this.taskService.updateTask(this.taskId, this.taskData).subscribe({
+    this.taskService.updateTask(this.id, this.taskData).subscribe({
       next: (res) => {
         this.snackBar.open('Задача обновлена', 'OK', { duration: 3000 });
         this.router.navigate(['/tasks', res.id]);

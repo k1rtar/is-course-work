@@ -17,19 +17,19 @@ export class TestCaseService {
 
   constructor(private http: HttpClient) {}
 
-  getTestCasesByTaskId(taskId: number): Observable<TestCase[]> {
-    return this.http.get<TestCase[]>(`${this.apiBaseUrl}/${taskId}/testcases`);
+  getTestCasesByid(id: number): Observable<TestCase[]> {
+    return this.http.get<TestCase[]>(`${this.apiBaseUrl}/${id}/testcases`);
   }
 
-  createTestCase(taskId: number, testCase: TestCase): Observable<TestCase> {
-    return this.http.post<TestCase>(`${this.apiBaseUrl}/${taskId}/testcases`, testCase);
+  createTestCase(id: number, testCase: TestCase): Observable<TestCase> {
+    return this.http.post<TestCase>(`${this.apiBaseUrl}/${id}/testcases`, testCase);
   }
 
-  updateTestCase(taskId: number, testCaseId: number, testCase: TestCase): Observable<TestCase> {
-    return this.http.put<TestCase>(`${this.apiBaseUrl}/${taskId}/testcases/${testCaseId}`, testCase);
+  updateTestCase(id: number, testCaseId: number, testCase: TestCase): Observable<TestCase> {
+    return this.http.put<TestCase>(`${this.apiBaseUrl}/${id}/testcases/${testCaseId}`, testCase);
   }
 
-  deleteTestCase(taskId: number, testCaseId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiBaseUrl}/${taskId}/testcases/${testCaseId}`);
+  deleteTestCase(id: number, testCaseId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiBaseUrl}/${id}/testcases/${testCaseId}`);
   }
 }

@@ -1,10 +1,11 @@
-// file: src/app/core/services/task.service.ts
+// src/app/core/services/task.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TestCaseDto } from '../../models/test-case.dto';
 
 export interface Task {
-  id?: number;
+  id?: number; // Используем id для согласованности с бэкендом
   title: string;
   description: string;
   difficultyLevel: number; // 0=EASY,1=MEDIUM,2=HARD (или ordinal)
@@ -14,23 +15,14 @@ export interface Task {
   maxExecutionTime?: number;
   maxMemoryUsage?: number;
   creatorUserId?: number;
-  testCases?: any[];
   categories?: any[];
+  testCases?: TestCaseDto[];
 }
 
 export interface Category {
   categoryId: number;
   categoryName: string;
   description?: string;
-}
-
-
-interface PageResponse<T> {
-  content: T[];
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number; // текущая страница (0-based)
 }
 
 @Injectable({
@@ -68,7 +60,7 @@ export class TaskService {
     maxDifficulty?: number,
     page: number = 0,
     size: number = 5
-  ): Observable<Task []> {
+  ): Observable<Task[]> {
     let params = new HttpParams()
       .set('page', page)
       .set('size', size);
@@ -86,7 +78,7 @@ export class TaskService {
       params = params.set('maxDifficulty', maxDifficulty);
     }
 
-    return this.http.get<Task []>(`${this.apiBaseUrl}/search`, { params });
+    return this.http.get<Task[]>(`${this.apiBaseUrl}/search`, { params });
   }
 
   getMyTasks(): Observable<Task[]> {

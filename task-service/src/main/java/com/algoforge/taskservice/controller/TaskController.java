@@ -28,8 +28,8 @@ public class TaskController {
 
 
     @GetMapping("/public")
-    public List<Task> listPublicTasks() {
-        return taskService.getAllPublicTasks();
+    public List<TaskDto> listPublicTasks() {
+        return taskService.getAllPublicTasks().stream().map(el -> el.getDtoObject()).toList();
     }
 
     @GetMapping("/{taskId}")
@@ -44,6 +44,8 @@ public class TaskController {
     public ResponseEntity<?> createTask(@RequestBody Task task,
                                         @AuthenticationPrincipal UserPrincipal principal) {
 
+
+        task.getTestCases().forEach(el -> System.out.println(el.isSample()));
         task.setCreatorUserId(principal.getId());
         Task createdTask = taskService.createTask(task);
 

@@ -1,16 +1,18 @@
+
+
 <div class="contest-list">
   <h2>Публичные контесты</h2>
   <div *ngFor="let contest of contests" class="contest-card">
     <mat-card>
       <mat-card-title>
-        <a [routerLink]="['/contests', contest.contestId]">
+        <a [routerLink]="['/contests', contest.contestId, 'detail']">
           {{ contest.title }}
         </a>
       </mat-card-title>
       <mat-card-content>
         <p>Описание: {{ contest.description }}</p>
-        <p>Начало: {{ contest.startTime }}</p>
-        <p>Окончание: {{ contest.endTime }}</p>
+        <p>Начало: {{ contest.startTime | date:'short' }}</p>
+        <p>Окончание: {{ contest.endTime | date:'short' }}</p>
       </mat-card-content>
     </mat-card>
   </div>

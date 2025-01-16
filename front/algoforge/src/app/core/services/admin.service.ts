@@ -35,8 +35,8 @@ export class AdminService {
     return this.http.delete<void>(`${this.apiUrl}/users/${username}`);
   }
 
-  deleteTask(taskId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/tasks/${taskId}`);
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/tasks/${id}`);
   }
 
   deleteContest(contestId: number): Observable<void> {

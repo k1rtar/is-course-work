@@ -22,6 +22,7 @@ import { CategoriesComponent } from './features/admin/categories/categories.comp
 
 import { SolutionsListComponent } from './features/solutions/solutions-list/solutions-list.component';
 import { SolutionDetailComponent } from './features/solutions/solutions-detail/solutions-detail.component';
+import { ContestDetailComponent } from './features/contests/contest-detail/contest-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tasks', pathMatch: 'full' },
@@ -48,6 +49,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: ContestListComponent },
       { path: 'my', component: MyContestsComponent, canActivate: [AuthGuard] },
+      { path: ':id/detail', component: ContestDetailComponent },
       { path: 'create', component: ContestCreateComponent, canActivate: [AuthGuard] },
       { path: ':id/edit', component: ContestEditComponent, canActivate: [AuthGuard] },
       { path: ':id/tasks', component: ContestTasksComponent, canActivate: [AuthGuard] },
