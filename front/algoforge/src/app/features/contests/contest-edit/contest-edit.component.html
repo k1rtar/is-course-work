@@ -1,0 +1,42 @@
+<!-- contest-edit.component.html -->
+<div class="contest-edit" *ngIf="contestData">
+  <mat-card>
+    <mat-card-title>Редактировать контест (ID: {{ contestId }})</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Название</mat-label>
+          <input matInput [(ngModel)]="contestData.title" name="title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Описание</mat-label>
+          <textarea matInput [(ngModel)]="contestData.description" name="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Время начала</mat-label>
+          <input matInput [matDatepicker]="picker1" [(ngModel)]="contestData.startTime" name="startTime" required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Время окончания</mat-label>
+          <input matInput [matDatepicker]="picker2" [(ngModel)]="contestData.endTime" name="endTime" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="contestData.isPublic" name="isPublic">
+          Публичный?
+        </mat-slide-toggle>
+
+        <br /><br />
+        <button mat-raised-button color="primary" type="submit">
+          Сохранить
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

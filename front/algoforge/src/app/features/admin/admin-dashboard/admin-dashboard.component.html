@@ -1,0 +1,51 @@
+<!-- file: src/app/features/admin/admin-dashboard/admin-dashboard.component.html -->
+<div class="admin-dashboard">
+  <h2>Админ-Панель</h2>
+
+  <mat-divider></mat-divider>
+  <h3>Блокировка / разблокировка пользователей</h3>
+  <div class="section">
+    <mat-form-field appearance="outline">
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput [(ngModel)]="blockUsername" />
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="doBlockUser()">Заблокировать</button>
+  </div>
+  <div class="section">
+    <mat-form-field appearance="outline">
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput [(ngModel)]="unblockUsername" />
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="doUnblockUser()">Разблокировать</button>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h3>Удаление пользователя</h3>
+  <div class="section">
+    <mat-form-field appearance="outline">
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput [(ngModel)]="userToDelete" />
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="deleteUser()">Удалить пользователя</button>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h3>Удаление задачи</h3>
+  <div class="section">
+    <mat-form-field appearance="outline">
+      <mat-label>ID задачи</mat-label>
+      <input matInput type="number" [(ngModel)]="taskIdToDelete" />
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="deleteTask()">Удалить задачу</button>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h3>Удаление контеста</h3>
+  <div class="section">
+    <mat-form-field appearance="outline">
+      <mat-label>ID контеста</mat-label>
+      <input matInput type="number" [(ngModel)]="contestIdToDelete" />
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="deleteContest()">Удалить контест</button>
+  </div>
+</div>

@@ -1,17 +1,17 @@
 package com.algoforge.taskservice.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 import com.algoforge.taskservice.model.Task;
 import com.algoforge.taskservice.repository.TaskRepository;
+import com.algoforge.taskservice.specification.TaskSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -30,7 +30,7 @@ public class TaskService {
     }
 
     public List<Task> getAllPublicTasks() {
-        return taskRepository.findByIsPublicTrue();
+        return taskRepository.findByIsPublic(true);
     }
 
     public Optional<Task> findById(Long taskId) {
@@ -57,10 +57,10 @@ public class TaskService {
     }
 
     /**
-     * Поиск задач с фильтрами + пагинация на уровне логики приложения.
+     * Поиск задач с фильтрами и пагинацией на уровне базы данных.
      * Если title пустая строка, приравняем к null (не фильтровать).
      */
-    public Page<Task> searchTasks(
+    public List<Task> searchTasks(
             String title,
             Long categoryId,
             Integer minDifficulty,
@@ -68,45 +68,28 @@ public class TaskService {
             int page,
             int size
     ) {
-        // Получаем все задачи
-        List<Task> allTasks = taskRepository.findAll();
+        Specification<Task> spec = Specification.where(null);
 
-        // Применяем фильтры
-        List<Task> filteredTasks = allTasks.stream()
-                .filter(task -> {
-                    boolean matches = true;
+        if (title != null && !title.isBlank()) {
+            spec = spec.and(TaskSpecification.hasTitle(title));
+        }
 
-                    // Фильтр по title (нечувствительный к регистру)
-                    if (title != null && !title.isBlank()) {
-                        matches = task.getTitle().toLowerCase().contains(title.toLowerCase());
-                    }
+        if (categoryId != null) {
+            spec = spec.and(TaskSpecification.hasCategoryId(categoryId));
+        }
 
-                    // Фильтр по categoryId
-                    if (matches && categoryId != null) {
-                        matches = task.getCategories().stream()
-                                .anyMatch(category -> category.getCategoryId().equals(categoryId));
-                    }
+        if (minDifficulty != null) {
+            spec = spec.and(TaskSpecification.hasMinDifficulty(minDifficulty));
+        }
 
-                    // Фильтр по minDifficulty
-                    if (matches && minDifficulty != null) {
-                        matches = task.getDifficultyLevel().ordinal() >= minDifficulty;
-                    }
+        if (maxDifficulty != null) {
+            spec = spec.and(TaskSpecification.hasMaxDifficulty(maxDifficulty));
+        }
 
-                    // Фильтр по maxDifficulty
-                    if (matches && maxDifficulty != null) {
-                        matches = task.getDifficultyLevel().ordinal() <= maxDifficulty;
-                    }
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Task> taskPage = taskRepository.findAll(spec, pageRequest);
 
-                    return matches;
-                })
-                .collect(Collectors.toList());
-
-        // Пагинация
-        int start = Math.min(page * size, filteredTasks.size());
-        int end = Math.min(start + size, filteredTasks.size());
-        List<Task> pagedTasks = filteredTasks.subList(start, end);
-
-        return new PageImpl<>(pagedTasks, PageRequest.of(page, size), filteredTasks.size());
+        return taskPage.getContent();
     }
 
     public List<Task> getTasksByCreator(Long userId) {

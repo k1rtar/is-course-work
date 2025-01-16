@@ -1,0 +1,16 @@
+/* file: src/app/features/tasks/task-list/task-list.component.scss */
+.task-list-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+
+  .filters-panel {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  table {
+    width: 100%;
+  }
+}

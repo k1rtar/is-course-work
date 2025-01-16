@@ -10,7 +10,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.algoforge.common.auth.UserPrincipal;
 import com.algoforge.common.dto.TaskDto;
 import com.algoforge.taskservice.model.Task;
+import com.algoforge.taskservice.model.TestCase;
 import com.algoforge.taskservice.service.TaskService;
+import com.algoforge.taskservice.service.TestCaseService;
 
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired 
+    private TestCaseService testCaseService;
 
 
     @GetMapping("/public")
@@ -40,7 +45,14 @@ public class TaskController {
                                         @AuthenticationPrincipal UserPrincipal principal) {
 
         task.setCreatorUserId(principal.getId());
-        taskService.createTask(task);
+        Task createdTask = taskService.createTask(task);
+
+        if (task.getTestCases() != null && !task.getTestCases().isEmpty()) {
+            for (TestCase tc : task.getTestCases()) {
+                tc.setTask(createdTask);
+            }
+            testCaseService.addAllTests(task.getTestCases());
+        }
 
         return ResponseEntity.ok().build();
     }
@@ -53,10 +65,10 @@ public class TaskController {
           or @taskSecurity.isTaskOwner(#id, authentication.principal.id)
         )
    """)
-    public Task updateTask(@PathVariable Long id,
+    public TaskDto updateTask(@PathVariable Long id,
                            @RequestBody Task updates,
                            @AuthenticationPrincipal UserPrincipal principal) {
-        return taskService.updateTask(id, updates);
+        return taskService.updateTask(id, updates).getDtoObject();
     }
 
     @DeleteMapping("/{id}")
@@ -76,7 +88,7 @@ public class TaskController {
      * Пример: GET /api/tasks/search?title=...&categoryId=...&minDifficulty=...&maxDifficulty=...&page=0&size=5
      */
     @GetMapping("/search")
-    public Page<Task> searchTasks(
+    public List<TaskDto> searchTasks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Integer minDifficulty,
@@ -91,12 +103,12 @@ public class TaskController {
                 maxDifficulty,
                 page,
                 size
-        );
+        ).stream().map(el -> el.getDtoObject()).toList();
     }
 
     @GetMapping("/my")
     @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN')")
-    public List<Task> getMyTasks(@AuthenticationPrincipal UserPrincipal principal) {
-        return taskService.getTasksByCreator(principal.getId());
+    public List<TaskDto> getMyTasks(@AuthenticationPrincipal UserPrincipal principal) {
+        return taskService.getTasksByCreator(principal.getId()).stream().map(el -> el.getDtoObject()).toList();
     }
 }

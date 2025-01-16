@@ -6,16 +6,17 @@ import com.algoforge.common.feign.TaskServiceClient;
 import com.algoforge.common.feign.TestRunnerClient;
 import com.algoforge.common.model.ExecutionRequest;
 import com.algoforge.common.model.ExecutionResult;
-import com.algoforge.common.model.Language;
 import com.algoforge.common.model.TestCase;
 import com.algoforge.solutionservice.dto.CreateSolutionRequest;
 import com.algoforge.solutionservice.model.Solution;
 import com.algoforge.solutionservice.model.SolutionStatus;
 import com.algoforge.solutionservice.repository.SolutionRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class SolutionService {
 
     @Autowired
     private SolutionRepository solutionRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public ExecutionResult createAndRunSolution(CreateSolutionRequest request) {
         // 1. Получаем задачу из TaskService
@@ -87,14 +91,34 @@ public class SolutionService {
         ExecutionResult executionResult = testRunnerClient.runSolution(execRequest);
         System.out.println("finished running");
         System.out.println(executionResult.getTestResults());
+
         // 5. Обновляем решение (статус + возможно сохраняем подробности)
-        //    Если allPassed = true, статус = "ACCEPTED", иначе "REJECTED"
         SolutionStatus newStatus = executionResult.isAllPassed() ? SolutionStatus.ACCEPTED : SolutionStatus.REJECTED;
         solution.setStatus(newStatus);
+
+        if (executionResult.getErrorMessage() != null) {
+            solution.setErrorMessage(executionResult.getErrorMessage());
+        }
+
+        try {
+            String testResultsJson = objectMapper.writeValueAsString(executionResult.getTestResults());
+            solution.setTestResultsJson(testResultsJson);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Можно установить сообщение об ошибке или обработать иначе
+            solution.setErrorMessage("Ошибка при сериализации результатов тестов.");
+        }
+
         solutionRepository.save(solution);
 
-        // 6. Возвращаем результат выполнения клиенту
-        //    (при желании можно включить ID решения, чтобы потом смотреть историю)
         return executionResult;
+    }
+
+    public List<Solution> getSolutionsByUserId(Long userId) {
+        return solutionRepository.findByUserId(userId);
+    }
+
+    public Solution getSolutionByIdAndUserId(Long solutionId, Long userId) {
+        return solutionRepository.findByIdAndUserId(solutionId, userId).orElseThrow();
     }
 }

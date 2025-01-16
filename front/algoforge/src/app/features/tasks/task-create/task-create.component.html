@@ -1,0 +1,116 @@
+<div class="task-create">
+  <mat-card>
+    <mat-card-title>Создать задачу</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <!-- Поля задачи -->
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Название задачи</mat-label>
+          <input matInput [(ngModel)]="taskData.title" name="title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Описание задачи</mat-label>
+          <textarea matInput [(ngModel)]="taskData.description" name="description" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Уровень сложности</mat-label>
+          <mat-select [(ngModel)]="taskData.difficultyLevel" name="difficultyLevel" required>
+            <mat-option *ngFor="let d of difficulties" [value]="d.value">
+              {{ d.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Ограничение сек.</mat-label>
+          <input matInput [(ngModel)]="taskData.maxExecutionTime" name="maxExecutionTime" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Ограничение МБ.</mat-label>
+          <input matInput [(ngModel)]="taskData.maxMemoryUsage" name="maxMemoryUsage" required />
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="taskData.isPublic" name="isPublic">
+          Публичная задача?
+        </mat-slide-toggle>
+        <br /><br />
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Категории</mat-label>
+          <mat-select multiple [(ngModel)]="selectedCategories" name="selectedCategories">
+            <mat-option *ngFor="let c of categoriesList" [value]="c.categoryId">
+              {{ c.categoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Секция тест-кейсов -->
+        <div class="test-cases">
+          <h3>Тест-кейсы</h3>
+          <!-- Перебираем массив testCases -->
+          <div
+            class="test-case-item"
+            *ngFor="let testCase of testCases; let i = index"
+            style="margin-bottom: 1rem;"
+          >
+            <mat-card>
+              <mat-card-title>Test case #{{ i + 1 }}</mat-card-title>
+              <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Входные данные</mat-label>
+                  <textarea
+                    matInput
+                    [(ngModel)]="testCase.inputData"
+                    name="inputData-{{ i }}"
+                    required
+                  ></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Ожидаемый вывод</mat-label>
+                  <textarea
+                    matInput
+                    [(ngModel)]="testCase.expectedOutputData"
+                    name="expectedOutputData-{{ i }}"
+                    required
+                  ></textarea>
+                </mat-form-field>
+
+                <mat-slide-toggle
+                  [(ngModel)]="testCase.isSample"
+                  name="isSample-{{ i }}"
+                >
+                  Пример (sample)?
+                </mat-slide-toggle>
+              </mat-card-content>
+
+              <mat-card-actions>
+                <button
+                  mat-button
+                  color="warn"
+                  (click)="removeTestCase(i)"
+                  type="button"
+                >
+                  Удалить
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+
+          <button mat-stroked-button color="primary" type="button" (click)="addTestCase()">
+            + Добавить тест-кейс
+          </button>
+        </div>
+        <!-- Конец секции тест-кейсов -->
+
+        <br />
+        <button mat-raised-button color="primary" type="submit">
+          Создать
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

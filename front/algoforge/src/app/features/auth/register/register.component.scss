@@ -1,0 +1,10 @@
+/* file: src/app/features/auth/register/register.component.scss */
+.register-container {
+  max-width: 400px;
+  margin: 3rem auto;
+
+  .error {
+    color: red;
+    margin-bottom: 1rem;
+  }
+}

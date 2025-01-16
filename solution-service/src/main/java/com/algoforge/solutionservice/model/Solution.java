@@ -37,4 +37,10 @@ public class Solution {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "text")
+    private String errorMessage;
+
+    @Column(columnDefinition = "text")
+    private String testResultsJson;
+
 }

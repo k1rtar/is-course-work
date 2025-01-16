@@ -1,0 +1,60 @@
+<div class="categories-container">
+  <h2>Управление категориями</h2>
+
+  <mat-card>
+    <mat-card-title>Список категорий</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+
+        <!-- ID -->
+        <ng-container matColumnDef="categoryId">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let cat"> {{cat.categoryId}} </td>
+        </ng-container>
+
+        <!-- Название -->
+        <ng-container matColumnDef="categoryName">
+          <th mat-header-cell *matHeaderCellDef> Название </th>
+          <td mat-cell *matCellDef="let cat"> {{cat.categoryName}} </td>
+        </ng-container>
+
+        <!-- Описание -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Описание </th>
+          <td mat-cell *matCellDef="let cat"> {{cat.description}} </td>
+        </ng-container>
+
+        <!-- Действия -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Действия </th>
+          <td mat-cell *matCellDef="let cat">
+            <a mat-button color="accent" [routerLink]="['/admin/categories', cat.categoryId, 'edit']">Редактировать</a>
+<!--            <button mat-button color="warn" (click)="deleteCategory(cat.categoryId)">Удалить</button>-->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['categoryId', 'categoryName', 'description', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['categoryId', 'categoryName', 'description', 'actions'];"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top: 1rem;">
+    <mat-card-title>Создать новую категорию</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Название категории</mat-label>
+        <input matInput [(ngModel)]="newCategoryName" name="newCategoryName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Описание</mat-label>
+        <textarea matInput [(ngModel)]="newCategoryDesc" name="newCategoryDesc"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="createCategory()">
+        Создать
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

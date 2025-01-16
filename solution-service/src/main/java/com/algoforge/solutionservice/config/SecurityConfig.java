@@ -43,21 +43,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry
-                        // Открываем CORS на любые пути, можно ограничиться "/api/**"
-                        .addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
 }
 

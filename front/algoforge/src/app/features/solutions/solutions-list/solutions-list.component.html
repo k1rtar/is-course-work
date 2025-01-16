@@ -1,0 +1,66 @@
+<div class="solutions-list-container">
+  <h2>Мои решения</h2>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let solution"> {{solution.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Task ID Column -->
+    <ng-container matColumnDef="taskId">
+      <mat-header-cell *matHeaderCellDef> Задача ID </mat-header-cell>
+      <mat-cell *matCellDef="let solution"> {{solution.taskId}} </mat-cell>
+    </ng-container>
+
+    <!-- Language Column -->
+    <ng-container matColumnDef="language">
+      <mat-header-cell *matHeaderCellDef> Язык </mat-header-cell>
+      <mat-cell *matCellDef="let solution"> {{solution.language}} </mat-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Статус </mat-header-cell>
+      <mat-cell *matCellDef="let solution">
+        <span [ngClass]="{
+          'status-created': solution.status === 'CREATED',
+          'status-running': solution.status === 'RUNNING',
+          'status-accepted': solution.status === 'ACCEPTED',
+          'status-rejected': solution.status === 'REJECTED'
+        }">
+          {{solution.status}}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- CreatedAt Column -->
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef> Создано </mat-header-cell>
+      <mat-cell *matCellDef="let solution"> {{solution.createdAt | date:'short'}} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let solution">
+        <button mat-button color="primary" [routerLink]="['/solutions', solution.id]">
+          Подробнее
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Header Row -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <!-- Data Row -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

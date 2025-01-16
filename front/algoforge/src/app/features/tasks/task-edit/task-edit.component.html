@@ -1,0 +1,45 @@
+<div class="task-edit" *ngIf="taskData">
+  <mat-card>
+    <mat-card-title>Редактировать задачу (ID: {{ taskId }})</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Название задачи</mat-label>
+          <input matInput [(ngModel)]="taskData.title" name="title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Описание задачи</mat-label>
+          <textarea matInput [(ngModel)]="taskData.description" name="description" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Уровень сложности</mat-label>
+          <mat-select [(ngModel)]="taskData.difficultyLevel" name="difficultyLevel" required>
+            <mat-option *ngFor="let d of difficulties" [value]="d.value">
+              {{ d.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="taskData.isPublic" name="isPublic">
+          Публичная задача?
+        </mat-slide-toggle>
+        <br /><br />
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Категории</mat-label>
+          <mat-select multiple [(ngModel)]="selectedCategories" name="selectedCategories">
+            <mat-option *ngFor="let c of categoriesList" [value]="c.categoryId">
+              {{ c.categoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">
+          Сохранить
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

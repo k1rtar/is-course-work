@@ -1,0 +1,67 @@
+<div class="task-detail" *ngIf="task">
+  <mat-card>
+    <mat-card-title>{{ task.title }}</mat-card-title>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ task.id }}</p>
+      <p><strong>Описание:</strong> {{ task.description }}</p>
+      <p><strong>Сложность:</strong> {{ task.difficultyLevel }}</p>
+      <p><strong>Статус:</strong> {{ task.status }}</p>
+      <p><strong>Публична:</strong> {{ task.isPublic ? 'Да' : 'Нет' }}</p>
+      <p><strong>Категории:</strong>
+        <span *ngFor="let c of task.categories">{{ c.categoryName }} </span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <mat-card-title>Отправить решение</mat-card-title>
+    <mat-card-content>
+      <div>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Язык</mat-label>
+          <mat-select [(ngModel)]="language" name="language">
+            <mat-option value="PYTHON">Python</mat-option>
+            <mat-option value="JAVA">Java</mat-option>
+            <mat-option value="CPP">C++</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Исходный код</mat-label>
+        <textarea matInput rows="8" [(ngModel)]="solutionCode" name="solutionCode"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="onSendSolution()">
+        Отправить решение
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <!-- Отобразим результаты решения, если есть -->
+  <div *ngIf="submissionResult as r">
+    <mat-card>
+      <mat-card-title>Результаты выполнения</mat-card-title>
+      <mat-card-content>
+        <p>Все тесты прошли: {{ r.allPassed ? 'Да' : 'Нет' }}</p>
+        <div *ngIf="r.testResults">
+          <p>Подробности тестов:</p>
+          <ul>
+            <li *ngFor="let t of r.testResults">
+              <strong>Ввод:</strong> {{ t.inputData }} <br />
+              <strong>Ожидалось:</strong> {{ t.expectedOutput }} <br />
+              <strong>Получено:</strong> {{ t.actualOutput }} <br />
+              <strong>Результат:</strong> {{ t.passed ? 'Прошел' : 'Провалено' }}
+              <hr />
+            </li>
+          </ul>
+        </div>
+        <p *ngIf="r.errorMessage">Ошибка: {{ r.errorMessage }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

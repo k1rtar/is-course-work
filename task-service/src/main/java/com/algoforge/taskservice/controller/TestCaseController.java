@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.algoforge.common.auth.UserPrincipal;
-import com.algoforge.common.dto.TestCaseDto;
 import com.algoforge.taskservice.model.Task;
 import com.algoforge.taskservice.model.TestCase;
 import com.algoforge.taskservice.service.TaskService;

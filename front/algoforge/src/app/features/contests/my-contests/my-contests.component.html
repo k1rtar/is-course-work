@@ -1,0 +1,15 @@
+<!-- my-contests.component.html -->
+<div class="my-contests">
+  <h2>Мои контесты</h2>
+  <div *ngFor="let c of myContests" class="contest-card">
+    <mat-card>
+      <mat-card-title>
+        {{ c.title }} (ID: {{ c.contestId }})
+      </mat-card-title>
+      <mat-card-content>
+        <p>Начало: {{ c.startTime }}</p>
+        <p>Окончание: {{ c.endTime }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

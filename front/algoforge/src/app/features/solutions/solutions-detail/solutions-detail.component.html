@@ -1,0 +1,56 @@
+<!-- src/app/features/solutions/solution-detail/solution-detail.component.html -->
+
+<div class="solution-detail-container" *ngIf="!isLoading && solution">
+  <h2>Детали Решения (ID: {{ solution.id }})</h2>
+
+  <mat-card class="solution-card">
+    <mat-card-title>Задача ID: {{ solution.taskId }}</mat-card-title>
+    <mat-card-subtitle>Язык: {{ solution.language }}</mat-card-subtitle>
+    <mat-card-content>
+      <p><strong>Статус:</strong>
+        <span [ngClass]="{
+          'status-created': solution.status === 'CREATED',
+          'status-running': solution.status === 'RUNNING',
+          'status-accepted': solution.status === 'ACCEPTED',
+          'status-rejected': solution.status === 'REJECTED'
+        }">
+          {{ solution.status }}
+        </span>
+      </p>
+      <p><strong>Создано:</strong> {{ solution.createdAt | date:'short' }}</p>
+      <div *ngIf="solution.errorMessage">
+        <p><strong>Ошибка выполнения:</strong> {{ solution.errorMessage }}</p>
+      </div>
+      <h3>Код Решения</h3>
+      <pre>{{ solution.code }}</pre>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="testResults.length > 0" class="test-results-card">
+    <mat-card-title>Результаты Тестов</mat-card-title>
+    <mat-card-content>
+      <div class="test-result" *ngFor="let test of testResults">
+        <p><strong>Входные данные:</strong> {{ test.inputData }}</p>
+        <p><strong>Ожидаемый вывод:</strong> {{ test.expectedOutput }}</p>
+        <p><strong>Фактический вывод:</strong> {{ test.actualOutput }}</p>
+        <p><strong>Статус:</strong>
+          <span [ngClass]="{
+            'passed': test.passed,
+            'failed': !test.passed
+          }">
+            {{ test.passed ? 'Пройден' : 'Не пройден' }}
+          </span>
+        </p>
+        <p *ngIf="test.errorMessage"><strong>Ошибка:</strong> {{ test.errorMessage }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <button mat-raised-button color="primary" [routerLink]="['/solutions']" >
+    Назад к списку решений
+  </button>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>

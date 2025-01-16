@@ -1,0 +1,35 @@
+<!--&lt;!&ndash; contest-detail.component.html &ndash;&gt;-->
+<!--<div class="contest-detail" *ngIf="contest">-->
+<!--  <mat-card>-->
+<!--    <mat-card-title>{{ contest.title }}</mat-card-title>-->
+<!--    <mat-card-content>-->
+<!--      <p><strong>ID:</strong> {{ contest.contestId }}</p>-->
+<!--      <p><strong>Описание:</strong> {{ contest.description }}</p>-->
+<!--      <p><strong>Начало:</strong> {{ contest.startTime }}</p>-->
+<!--      <p><strong>Окончание:</strong> {{ contest.endTime }}</p>-->
+<!--      <p><strong>Creator ID:</strong> {{ contest.creatorUserId }}</p>-->
+<!--      <a mat-stroked-button color="primary" [routerLink]="['/contests', contest.contestId, 'edit']">Редактировать</a>-->
+<!--      <a mat-stroked-button color="accent" [routerLink]="['/contests', contest.contestId, 'tasks']">Управление задачами</a>-->
+<!--      <a mat-stroked-button color="warn" [routerLink]="['/contests', contest.contestId, 'results']">Результаты</a>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<div class="contest-detail" *ngIf="contest">
+  <mat-card>
+    <mat-card-title>{{ contest.title }}</mat-card-title>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ contest.contestId }}</p>
+      <p><strong>Описание:</strong> {{ contest.description }}</p>
+      <p><strong>Начало:</strong> {{ contest.startTime | date:'short' }}</p>
+      <p><strong>Окончание:</strong> {{ contest.endTime | date:'short' }}</p>
+      <p><strong>Creator ID:</strong> {{ contest.creatorUserId }}</p>
+      <a mat-stroked-button color="accent" [routerLink]="['/contests', contest.contestId, 'tasks']">Управление задачами</a>
+      <a mat-stroked-button color="warn" [routerLink]="['/contests', contest.contestId, 'results']">Результаты</a>
+
+      <!-- Кнопка участия -->
+      <button mat-raised-button color="primary" *ngIf="canParticipate()" [routerLink]="['/contests', contest.contestId, 'participate']">
+        Участвовать
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

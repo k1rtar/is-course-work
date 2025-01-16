@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="navbar-logo">
+    <a routerLink="/">AlgoForge</a>
+  </span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/tasks" routerLinkActive="active">Задачи</button>
+  <button mat-button routerLink="/contests" routerLinkActive="active">Контесты</button>
+  <button mat-button routerLink="/solutions" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+    Мои решения
+  </button>
+  <button mat-button routerLink="/tasks/create" *ngIf="authService.isLoggedIn() && !authService.isBlockedUser()">
+    Создать задачу
+  </button>
+  <button mat-button routerLink="/contests/create" *ngIf="authService.isLoggedIn() && !authService.isBlockedUser()">
+    Создать контест
+  </button>
+  <button mat-button routerLink="/contests/my" *ngIf="authService.isLoggedIn() && !authService.isBlockedUser()">
+    Мои контесты
+  </button>
+  <button mat-button routerLink="/admin" *ngIf="authService.isLoggedIn()">
+    Админка
+  </button>
+  <button mat-button routerLink="/login" *ngIf="!authService.isLoggedIn()">Вход</button>
+  <button mat-button routerLink="/register" *ngIf="!authService.isLoggedIn()">Регистрация</button>
+  <button mat-button (click)="logout()" *ngIf="authService.isLoggedIn()">Выход</button>
+</mat-toolbar>
